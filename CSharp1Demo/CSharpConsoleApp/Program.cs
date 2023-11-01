@@ -25,10 +25,6 @@
             {
                 solution = left % right;
             }
-            else
-            {
-                Console.WriteLine("Your provided operator is invalid. Sorry. Please try again.");
-            }
             return solution;
         }
         static void Main(string[] args)
@@ -70,13 +66,22 @@
             Console.Write("Please enter a right operand (number): ");
             rightOperand = Convert.ToInt32(Console.ReadLine());
             string operation;
+            int badInputs = 0;
             do
             {
                 Console.Write("Please enter a operator (+ - / * %): ");
                 operation = Console.ReadLine();
-
-                Console.WriteLine("You solution is "+EvaluateMath(leftOperand, rightOperand, operation));
+                if (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%")
+                {
+                    Console.WriteLine("Your provided operator is invalid. Sorry. Please try again.");
+                    badInputs++;
+                }
+                else
+                {
+                    Console.WriteLine("You solution is " + EvaluateMath(leftOperand, rightOperand, operation));
+                }
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
+            Console.WriteLine("You entered a bad input " + badInputs + " times.");
         }
     }
 }
