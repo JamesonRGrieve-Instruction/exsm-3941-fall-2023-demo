@@ -40,34 +40,38 @@
             leftOperand = int.Parse(Console.ReadLine());
             Console.Write("Please enter a right operand (number): ");
             rightOperand = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Please enter a operator (+ - / * %): ");
-            string operation = Console.ReadLine(); 
+            string operation;
+            do
+            {
+                Console.Write("Please enter a operator (+ - / * %): ");
+                operation = Console.ReadLine();
 
-
-            if (operation == "+")
-            {
-                Console.WriteLine("The solution to " + leftOperand + " + " + rightOperand + " is " + (leftOperand + rightOperand));
-            }
-            else if (operation == "-")
-            {
-                Console.WriteLine("The solution to " + leftOperand + " - " + rightOperand + " is " + (leftOperand - rightOperand));
-            }
-            else if (operation == "*")
-            {
-                Console.WriteLine("The solution to " + leftOperand + " * " + rightOperand + " is " + (leftOperand * rightOperand));
-            }
-            else if (operation == "/")
-            {
-                Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand / rightOperand));
-            }
-            else if (operation == "%")
-            {
-                Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand % rightOperand));
-            }
-            else
-            {
-                Console.WriteLine("Your provided operator is invalid. Sorry.");
-            }
+                if (operation == "+")
+                {
+                    Console.WriteLine("The solution to " + leftOperand + " + " + rightOperand + " is " + (leftOperand + rightOperand));
+                }
+                else if (operation == "-")
+                {
+                    Console.WriteLine("The solution to " + leftOperand + " - " + rightOperand + " is " + (leftOperand - rightOperand));
+                }
+                else if (operation == "*")
+                {
+                    Console.WriteLine("The solution to " + leftOperand + " * " + rightOperand + " is " + (leftOperand * rightOperand));
+                }
+                else if (operation == "/")
+                {
+                    Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand / rightOperand));
+                }
+                else if (operation == "%")
+                {
+                    Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand % rightOperand));
+                }
+                else
+                {
+                    Console.WriteLine("Your provided operator is invalid. Sorry. Please try again.");
+                }
+            } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
+            
 
         }
     }
