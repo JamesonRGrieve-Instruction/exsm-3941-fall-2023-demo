@@ -40,11 +40,31 @@
             leftOperand = int.Parse(Console.ReadLine());
             Console.Write("Please enter a right operand (number): ");
             rightOperand = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Please enter a operator (+): ");
+            Console.Write("Please enter a operator (+ - / *): ");
             string operation = Console.ReadLine(); 
 
 
-            Console.WriteLine("The solution to "+leftOperand+" + "+rightOperand+" is "+(leftOperand+rightOperand));
+            if (operation == "+")
+            {
+                Console.WriteLine("The solution to " + leftOperand + " + " + rightOperand + " is " + (leftOperand + rightOperand));
+            }
+            else if (operation == "-")
+            {
+                Console.WriteLine("The solution to " + leftOperand + " - " + rightOperand + " is " + (leftOperand - rightOperand));
+            }
+            else if (operation == "*")
+            {
+                Console.WriteLine("The solution to " + leftOperand + " * " + rightOperand + " is " + (leftOperand * rightOperand));
+            }
+            else if (operation == "/")
+            {
+                Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand / rightOperand));
+            }
+            else
+            {
+                Console.WriteLine("Your provided operator is invalid. Sorry.");
+            }
+
         }
     }
 }
