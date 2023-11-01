@@ -2,6 +2,35 @@
 {
     internal class Program
     {
+        static int? EvaluateMath(int left, int right, string operation)
+        {
+            int? solution = null;
+            if (operation == "+")
+            {
+                solution = left + right;
+            }
+            else if (operation == "-")
+            {
+                solution = left - right;
+            }
+            else if (operation == "*")
+            {
+                solution = left * right;
+            }
+            else if (operation == "/")
+            {
+                solution = left / right;
+            }
+            else if (operation == "%")
+            {
+                solution = left % right;
+            }
+            else
+            {
+                Console.WriteLine("Your provided operator is invalid. Sorry. Please try again.");
+            }
+            return solution;
+        }
         static void Main(string[] args)
         {
             // --- Data Types ---
@@ -46,33 +75,8 @@
                 Console.Write("Please enter a operator (+ - / * %): ");
                 operation = Console.ReadLine();
 
-                if (operation == "+")
-                {
-                    Console.WriteLine("The solution to " + leftOperand + " + " + rightOperand + " is " + (leftOperand + rightOperand));
-                }
-                else if (operation == "-")
-                {
-                    Console.WriteLine("The solution to " + leftOperand + " - " + rightOperand + " is " + (leftOperand - rightOperand));
-                }
-                else if (operation == "*")
-                {
-                    Console.WriteLine("The solution to " + leftOperand + " * " + rightOperand + " is " + (leftOperand * rightOperand));
-                }
-                else if (operation == "/")
-                {
-                    Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand / rightOperand));
-                }
-                else if (operation == "%")
-                {
-                    Console.WriteLine("The solution to " + leftOperand + " / " + rightOperand + " is " + (leftOperand % rightOperand));
-                }
-                else
-                {
-                    Console.WriteLine("Your provided operator is invalid. Sorry. Please try again.");
-                }
+                Console.WriteLine("You solution is "+EvaluateMath(leftOperand, rightOperand, operation));
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
-            
-
         }
     }
 }
