@@ -78,7 +78,7 @@
                 }
                 else
                 {
-                    Console.WriteLine("You solution is " + EvaluateMath(leftOperand, rightOperand, operation));
+                    Console.WriteLine("Your solution is " + EvaluateMath(leftOperand, rightOperand, operation));
                 }
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
             Console.WriteLine("You entered a bad input " + badInputs + " times.");
