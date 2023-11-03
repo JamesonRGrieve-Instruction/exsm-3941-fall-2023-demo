@@ -2,6 +2,11 @@
 {
     internal class Program
     {
+
+        static void Add3ToInteger(ref decimal value)
+        {
+            value += 3;
+        }
         static decimal? EvaluateMath(int left, int right, string operation)
         {
             decimal? solution = null;
@@ -97,6 +102,7 @@
             rightOperand = GetValidInt("Please enter a right operand (number): ");
             string operation;
             int badInputs = 0;
+            decimal result = 0;
             do
             {
                 Console.Write("Please enter a operator (+ - / * %): ");
@@ -108,10 +114,14 @@
                 }
                 else
                 {
-                    Console.WriteLine($"Your solution is {EvaluateMath(leftOperand, rightOperand, operation):0.00}.");
+                    result = EvaluateMath(leftOperand, rightOperand, operation)??0;
+                    Console.WriteLine($"Your solution is {result:0.00}.");
                 }
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
             Console.WriteLine("You entered a bad input " + badInputs + " times.");
+
+            Add3ToInteger(ref result);
+            Console.WriteLine("If we add 3 to the result, we get: " + result);
         }
     }
 }
