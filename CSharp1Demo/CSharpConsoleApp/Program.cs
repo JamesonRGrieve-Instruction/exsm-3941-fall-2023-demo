@@ -2,35 +2,35 @@
 {
     internal class Program
     {
-        static int? EvaluateMath(int left, int right, string operation)
+        static decimal? EvaluateMath(int left, int right, string operation)
         {
-            int? solution = null;
+            decimal? solution = null;
             try
             {
-            if (operation == "+")
-            {
-                solution = left + right;
+                if (operation == "+")
+                {
+                    solution = left + right;
+                }
+                else if (operation == "-")
+                {
+                    solution = left - right;
+                }
+                else if (operation == "*")
+                {
+                    solution = left * right;
+                }
+                else if (operation == "/")
+                {
+                    solution = (decimal)left / (decimal)right;
+                }
+                else if (operation == "%")
+                {
+                    solution = left % right;
+                }
             }
-            else if (operation == "-")
+            catch (Exception ex)
             {
-                solution = left - right;
-            }
-            else if (operation == "*")
-            {
-                solution = left * right;
-            }
-            else if (operation == "/")
-            {
-                solution = left / right;
-            }
-            else if (operation == "%")
-            {
-                solution = left % right;
-            }
-            }
-            catch (Exception ex) 
-            {
-                Console.WriteLine("ERROR: "+ex.Message);
+                Console.WriteLine($"ERROR: {ex.Message}");
             }
             return solution;
         }
@@ -42,13 +42,13 @@
             {
                 Console.Write(prompt);
                 try
-                { 
+                {
                     userResponse = int.Parse(Console.ReadLine());
                     valid = true;
                 }
                 catch (Exception ex)
-                { 
-                    Console.WriteLine("ERROR: "+ex.Message);
+                {
+                    Console.WriteLine("ERROR: " + ex.Message);
                 }
             } while (!valid);
             return userResponse;
@@ -102,7 +102,7 @@
                 }
                 else
                 {
-                    Console.WriteLine("Your solution is " + EvaluateMath(leftOperand, rightOperand, operation));
+                    Console.WriteLine($"Your solution is {EvaluateMath(leftOperand, rightOperand, operation):0.00}.");
                 }
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
             Console.WriteLine("You entered a bad input " + badInputs + " times.");
