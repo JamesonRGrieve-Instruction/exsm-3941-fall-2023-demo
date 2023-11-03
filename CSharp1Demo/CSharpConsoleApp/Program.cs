@@ -1,4 +1,6 @@
-﻿namespace CSharpConsoleApp
+﻿using System.Runtime.Serialization.Formatters;
+
+namespace CSharpConsoleApp
 {
     internal class Program
     {
@@ -72,6 +74,14 @@
             } while (!Month.TryParse(Console.ReadLine(), out userResponse));
             return userResponse;
         }
+        static void CountTo(int to, int count)
+        {
+            if (count <= to)
+            {
+                Console.WriteLine(count);
+                CountTo(to, count + 1);
+            }
+        }
         static void Main(string[] args)
         {
             // --- Data Types ---
@@ -104,6 +114,13 @@
             // Logical Operators
             // && || !
 
+
+            for (int i = 1; i <= 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+
+            CountTo(10, 1);
 
             int leftOperand, rightOperand;
             leftOperand = (int)GetValidInt("Please enter a left operand (number): ");
