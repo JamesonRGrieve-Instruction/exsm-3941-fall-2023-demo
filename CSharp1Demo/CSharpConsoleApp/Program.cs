@@ -143,7 +143,7 @@ namespace CSharpConsoleApp
                     Console.WriteLine($"Your solution is {result:0.00}.");
                 }
             } while (operation != "+" && operation != "-" && operation != "/" && operation != "*" && operation != "%");
-            Console.WriteLine("You entered a bad input " + badInputs + " times.");
+            Console.WriteLine("You entered a bad input " + (badInputs == 0 ? "no" : badInputs) + " times.");
 
             Add3ToInteger(ref result);
             Console.WriteLine("If we add 3 to the result, we get: " + result);
