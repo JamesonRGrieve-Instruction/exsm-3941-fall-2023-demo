@@ -5,6 +5,8 @@
         static int? EvaluateMath(int left, int right, string operation)
         {
             int? solution = null;
+            try
+            {
             if (operation == "+")
             {
                 solution = left + right;
@@ -25,20 +27,30 @@
             {
                 solution = left % right;
             }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("ERROR: "+ex.Message);
+            }
             return solution;
         }
         static int GetValidInt(string prompt)
         {
             int userResponse = 0;
+            bool valid = false;
             do
             {
                 Console.Write(prompt);
                 try
                 { 
                     userResponse = int.Parse(Console.ReadLine());
+                    valid = true;
                 }
-                catch { }
-            } while (userResponse == 0);
+                catch (Exception ex)
+                { 
+                    Console.WriteLine("ERROR: "+ex.Message);
+                }
+            } while (!valid);
             return userResponse;
         }
         static void Main(string[] args)
@@ -75,18 +87,8 @@
 
 
             int leftOperand, rightOperand;
-            Console.Write("Please enter a left operand (number): ");
-            try
-            {
-                leftOperand = int.Parse(Console.ReadLine());
-            }
-            catch (Exception ex) 
-            {
-                Console.WriteLine("ERROR: " + ex.Message);
-                leftOperand = 10;
-            }
-            Console.Write("Please enter a right operand (number): ");
-            rightOperand = Convert.ToInt32(Console.ReadLine());
+            leftOperand = GetValidInt("Please enter a left operand (number): ");
+            rightOperand = GetValidInt("Please enter a right operand (number): ");
             string operation;
             int badInputs = 0;
             do
