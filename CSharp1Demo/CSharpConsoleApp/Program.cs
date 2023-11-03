@@ -2,7 +2,25 @@
 {
     internal class Program
     {
-
+        enum Month : byte
+        {
+            January = 1,
+            February,
+            March,
+            April,
+            May,
+            June,
+            July,
+            August,
+            September,
+            October,
+            November,
+            December,
+            Spring = 101,
+            Summer,
+            Autumn,
+            Winter
+        }
         static void Add3ToInteger(ref decimal value)
         {
             value += 3;
@@ -45,13 +63,13 @@
         /// </summary>
         /// <param name="prompt">The prompt to display to the user.</param>
         /// <returns>The valid integer once the user provides one.</returns>
-        static int GetValidInt(string prompt)
+        static Month GetValidInt(string prompt)
         {
-            int userResponse = 0;
+            Month userResponse = 0;
             do
             {
                 Console.Write(prompt);
-            } while (!int.TryParse(Console.ReadLine(), out userResponse));
+            } while (!Month.TryParse(Console.ReadLine(), out userResponse));
             return userResponse;
         }
         static void Main(string[] args)
@@ -88,8 +106,8 @@
 
 
             int leftOperand, rightOperand;
-            leftOperand = GetValidInt("Please enter a left operand (number): ");
-            rightOperand = GetValidInt("Please enter a right operand (number): ");
+            leftOperand = (int)GetValidInt("Please enter a left operand (number): ");
+            rightOperand = (int)GetValidInt("Please enter a right operand (number): ");
             string operation;
             int badInputs = 0;
             decimal result = 0;
