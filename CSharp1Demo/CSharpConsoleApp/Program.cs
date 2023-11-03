@@ -34,6 +34,12 @@
             }
             return solution;
         }
+
+        /// <summary>
+        /// Prompt the user repeatedly to provide a valid integer using the prompt provided, until they do so.
+        /// </summary>
+        /// <param name="prompt">The prompt to display to the user.</param>
+        /// <returns>The valid integer once the user provides one.</returns>
         static int GetValidInt(string prompt)
         {
             int userResponse = 0;
