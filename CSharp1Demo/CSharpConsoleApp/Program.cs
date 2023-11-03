@@ -27,6 +27,20 @@
             }
             return solution;
         }
+        static int GetValidInt(string prompt)
+        {
+            int userResponse = 0;
+            do
+            {
+                Console.Write(prompt);
+                try
+                { 
+                    userResponse = int.Parse(Console.ReadLine());
+                }
+                catch { }
+            } while (userResponse == 0);
+            return userResponse;
+        }
         static void Main(string[] args)
         {
             // --- Data Types ---
@@ -62,7 +76,15 @@
 
             int leftOperand, rightOperand;
             Console.Write("Please enter a left operand (number): ");
-            leftOperand = int.Parse(Console.ReadLine());
+            try
+            {
+                leftOperand = int.Parse(Console.ReadLine());
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("ERROR: " + ex.Message);
+                leftOperand = 10;
+            }
             Console.Write("Please enter a right operand (number): ");
             rightOperand = Convert.ToInt32(Console.ReadLine());
             string operation;
