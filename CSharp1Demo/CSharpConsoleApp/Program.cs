@@ -48,20 +48,10 @@
         static int GetValidInt(string prompt)
         {
             int userResponse = 0;
-            bool valid = false;
             do
             {
                 Console.Write(prompt);
-                try
-                {
-                    userResponse = int.Parse(Console.ReadLine());
-                    valid = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR: " + ex.Message);
-                }
-            } while (!valid);
+            } while (!int.TryParse(Console.ReadLine(), out userResponse));
             return userResponse;
         }
         static void Main(string[] args)
