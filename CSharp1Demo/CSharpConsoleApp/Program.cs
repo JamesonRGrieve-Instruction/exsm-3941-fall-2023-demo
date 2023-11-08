@@ -2,7 +2,7 @@
 
 namespace CSharpConsoleApp
 {
-    internal class Program
+    public class Program
     {
         enum Month : byte
         {
@@ -23,7 +23,7 @@ namespace CSharpConsoleApp
             Autumn,
             Winter
         }
-        static void Add3ToInteger(ref decimal value)
+        public static void Add3ToInteger(ref decimal value)
         {
             value += 3;
         }
