@@ -41,7 +41,26 @@ namespace CSharpConsoleApp
         }
         public static string ModifyString(string text)
         {
-            throw new NotImplementedException();
+            string result = "";
+            for (int i = text.Length-1; i >= 0; i--)
+            {
+                if (char.IsDigit(text[i]))
+                {
+                    throw new ArgumentException("Cannot contain digits.", nameof(text));
+                }
+                if (char.IsLetter(text[i]))
+                {
+                    result += text[i].ToString().ToUpper();
+                }
+            }
+            return result;
+
+            // This also works, assuming you've sanitized it of symbols already.
+            /*
+            char[] output = text.ToCharArray();
+            Array.Reverse(output);
+            return output.ToString().ToUpper();
+            */
         }
         public enum Shape
         {
