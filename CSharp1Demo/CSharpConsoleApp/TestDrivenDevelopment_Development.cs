@@ -18,7 +18,26 @@ namespace CSharpConsoleApp
         }
         public static int TimestampToSeconds(string timestamp)
         {
-            throw new NotImplementedException();
+            if (timestamp.Split(':').Length != 2)
+            {
+                throw new ArgumentException("Too many segments.", nameof(timestamp));
+            }
+            try
+            {
+                int hours = int.Parse(timestamp.Split(":")[0]);
+                int minutes = int.Parse(timestamp.Split(":")[1]);
+                if (hours < 0 || minutes < 0) 
+                {
+                    throw new ArgumentException("Must be positive.", nameof(timestamp));
+                }
+                return (hours * 60 + minutes)*60;
+            }
+            catch(Exception)
+            {
+                throw new ArgumentException("Invalid segment(s).", nameof(timestamp));
+            }
+
+
         }
         public static string ModifyString(string text)
         {
