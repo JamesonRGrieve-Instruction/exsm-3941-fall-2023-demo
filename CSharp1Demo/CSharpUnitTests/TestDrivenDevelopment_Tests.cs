@@ -12,7 +12,7 @@ namespace CSharpUnitTests
         [InlineData(0, 0)]
         [InlineData(60, 1)]
         [InlineData(600, 10)]
-        public static void TestValid_MinutesToSeconds(int expectedResult, int minutes)
+        public static void Test_MinutesToSeconds_Valid(int expectedResult, int minutes)
         {
             // Arrange
             // N/A
@@ -25,7 +25,7 @@ namespace CSharpUnitTests
         }
 
         [Fact]
-        public static void TestInvalid_MinutesToSeconds()
+        public static void Test_MinutesToSeconds_Invalid()
         {
             // Arrange
             // N/A
@@ -51,7 +51,7 @@ namespace CSharpUnitTests
         [InlineData(60, "0:01")]
         [InlineData(300, "0:05")]
         [InlineData(3600, "1:00")]
-        public static void TestValid_TimeStampToSeconds(int expectedResult, string timestamp)
+        public static void Test_TimeStampToSeconds_Valid(int expectedResult, string timestamp)
         {
             // Arrange
             // N/A
@@ -71,7 +71,7 @@ namespace CSharpUnitTests
         [InlineData("0:-01")]
         [InlineData("1:1:1")]
         //[InlineData("0:1")]
-        public static void TestInvalid_TimestampToSeconds(string timestamp)
+        public static void Test_TimestampToSeconds_Invalid(string timestamp)
         {
             // Arrange
             // N/A
@@ -87,5 +87,89 @@ namespace CSharpUnitTests
             Assert.Equal("timestamp", exception.ParamName);
         }
 
+
+        [Theory]
+        [InlineData("DLROWOLLEH", "Hello, World!")]
+        [InlineData("SSALCOTEMOCLEW", "Welcome to Class.")]
+        [InlineData("NUFSISIHT", "This is fun.")]
+        [InlineData("", "!@#$%^&*(){}[]-_=+,.<>/?;:'\"")]
+        public static void Test_ModifyString_Valid(string expectedResult, string text)
+        {
+            // Arrange
+            // N/A
+
+            // Act
+            string actualResult = TestDrivenDevelopment_Development.ModifyString(text);
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory]
+        [InlineData("One is 1.")]
+        [InlineData("1234")]
+        public static void Test_ModifyString_Invalid(string text)
+        {
+            // Arrange
+            // N/A
+
+            // Act
+            Action act = () =>
+            {
+                TestDrivenDevelopment_Development.ModifyString(text);
+            };
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("text", exception.ParamName);
+        }
+
+        [Theory]
+        [InlineData(189.88d, 15.5, 12.25, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData(100d, 10, 20, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData(314.16d, 20, null, TestDrivenDevelopment_Development.Shape.Circle)]
+        public static void Test_GetArea_Valid(double expectedResult, double sideOne, double? sideTwo, TestDrivenDevelopment_Development.Shape shape)
+        {
+            // Arrange
+            // N/A
+
+            // Act
+            double actualResult = TestDrivenDevelopment_Development.GetArea(shape, sideOne, sideTwo);
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Theory]
+        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10, null, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10, null, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10, 1, TestDrivenDevelopment_Development.Shape.Circle)]
+        public static void Test_GetArea_Invalid(string issueParameter, double sideOne, double? sideTwo, TestDrivenDevelopment_Development.Shape shape)
+        {
+            // Arrange
+            // N/A
+
+            // Act
+            Action act = () =>
+            {
+                TestDrivenDevelopment_Development.GetArea(shape, sideOne, sideTwo);
+            };
+
+            // Assert
+            ArgumentException exception = Assert.Throws<ArgumentException>(act);
+            Assert.Equal(issueParameter, exception.ParamName);
+        }
     }
 }
