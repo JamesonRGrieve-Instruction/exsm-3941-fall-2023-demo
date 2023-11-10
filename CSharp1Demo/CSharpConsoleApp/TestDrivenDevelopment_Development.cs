@@ -26,13 +26,13 @@ namespace CSharpConsoleApp
             {
                 int hours = int.Parse(timestamp.Split(":")[0]);
                 int minutes = int.Parse(timestamp.Split(":")[1]);
-                if (hours < 0 || minutes < 0) 
+                if (hours < 0 || minutes < 0)
                 {
                     throw new ArgumentException("Must be positive.", nameof(timestamp));
                 }
-                return (hours * 60 + minutes)*60;
+                return (hours * 60 + minutes) * 60;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new ArgumentException("Invalid segment(s).", nameof(timestamp));
             }
@@ -42,7 +42,7 @@ namespace CSharpConsoleApp
         public static string ModifyString(string text)
         {
             string result = "";
-            for (int i = text.Length-1; i >= 0; i--)
+            for (int i = text.Length - 1; i >= 0; i--)
             {
                 if (char.IsDigit(text[i]))
                 {
@@ -70,7 +70,38 @@ namespace CSharpConsoleApp
         }
         public static double GetArea(Shape shape, double sideOne, double? sideTwo)
         {
-            throw new NotImplementedException();
+            if (sideOne <= 0)
+            {
+                throw new ArgumentException("Must be positive.", nameof(sideOne));
+            } 
+            if (sideTwo <= 0)
+            {
+                throw new ArgumentException("Must be positive.", nameof(sideTwo));
+            } 
+            if ((shape == Shape.Rectangle || shape == Shape.Triangle) && sideTwo == null)
+            {
+                throw new ArgumentException("Must have two sides (length/width for rectangle and base/height for triangle).", nameof(sideTwo));
+            }
+            if (shape == Shape.Circle && sideTwo != null)
+            {
+                throw new ArgumentException("Must have one side (diameter).", nameof(sideTwo));
+            }
+            if (shape == Shape.Rectangle)
+            {
+                return Math.Round(sideOne * (double)(sideTwo ?? 0), 2);
+            }
+            else if (shape == Shape.Triangle)
+            {
+                return Math.Round(0.5 * sideOne * (double)(sideTwo ?? 0), 2);
+            }
+            else if (shape == Shape.Circle)
+            {
+                return Math.Round(Math.PI * (sideOne/2) * (sideOne/2), 2);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid shape.", nameof(shape));
+            }
         }
     }
 }

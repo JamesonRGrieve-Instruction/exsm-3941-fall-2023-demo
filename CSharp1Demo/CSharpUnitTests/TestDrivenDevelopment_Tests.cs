@@ -125,9 +125,9 @@ namespace CSharpUnitTests
         }
 
         [Theory]
-        [InlineData(189.88d, 15.5, 12.25, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData(100d, 10, 20, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData(314.16d, 20, null, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData(189.88d, 15.5d, 12.25d, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData(100d, 10d, 20d, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData(314.16d, 20d, null, TestDrivenDevelopment_Development.Shape.Circle)]
         public static void Test_GetArea_Valid(double expectedResult, double sideOne, double? sideTwo, TestDrivenDevelopment_Development.Shape shape)
         {
             // Arrange
@@ -141,21 +141,21 @@ namespace CSharpUnitTests
         }
 
         [Theory]
-        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData("sideTwo", 10, null, TestDrivenDevelopment_Development.Shape.Rectangle)]
-        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData("sideTwo", 10, null, TestDrivenDevelopment_Development.Shape.Triangle)]
-        [InlineData("sideOne", -1, 10, TestDrivenDevelopment_Development.Shape.Circle)]
-        [InlineData("sideOne", 0, 10, TestDrivenDevelopment_Development.Shape.Circle)]
-        [InlineData("sideTwo", 10, -1, TestDrivenDevelopment_Development.Shape.Circle)]
-        [InlineData("sideTwo", 10, 0, TestDrivenDevelopment_Development.Shape.Circle)]
-        [InlineData("sideTwo", 10, 1, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideOne", -1d, 10d, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideOne", 0d, 10d, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10d, -1d, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10d, 0d, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideTwo", 10d, null, TestDrivenDevelopment_Development.Shape.Rectangle)]
+        [InlineData("sideOne", -1d, 10d, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideOne", 0d, 10d, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10d, -1d, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10d, 0d, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideTwo", 10d, null, TestDrivenDevelopment_Development.Shape.Triangle)]
+        [InlineData("sideOne", -1d, 10d, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideOne", 0d, 10d, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10d, -1d, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10d, 0d, TestDrivenDevelopment_Development.Shape.Circle)]
+        [InlineData("sideTwo", 10d, 1d, TestDrivenDevelopment_Development.Shape.Circle)]
         public static void Test_GetArea_Invalid(string issueParameter, double sideOne, double? sideTwo, TestDrivenDevelopment_Development.Shape shape)
         {
             // Arrange
