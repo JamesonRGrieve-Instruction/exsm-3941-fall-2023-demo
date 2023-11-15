@@ -81,7 +81,14 @@ namespace CSharpConsoleApp
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
                     int deleteIndexParsed = GetValidInt("Please make a selection to modify: ");
-                    numberArray[deleteIndexParsed - 1] = 0;
+                    while (deleteIndexParsed < numberArrayLogicalSize)
+                    {
+                        // A little counter-intuitive, this is actually the index we are targeting and the next one (since this varialbe is "English" or 1-indexed.
+                        SwapArrayIndexes(numberArray, deleteIndexParsed - 1, deleteIndexParsed);
+                        deleteIndexParsed++;
+                    }
+                    // This is a little redundant, as the user will never see it after the logical size shrinks.
+                    //numberArray[deleteIndexParsed - 1] = 0;
                     numberArrayLogicalSize--;
                 }
                 else if (userSelection == 5)
