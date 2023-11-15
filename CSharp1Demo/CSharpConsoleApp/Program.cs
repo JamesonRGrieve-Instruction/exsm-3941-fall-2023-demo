@@ -36,6 +36,9 @@ namespace CSharpConsoleApp
             string userInput = "";
             do
             {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.Clear();
                 Console.Write("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
                 userInput = Console.ReadLine().Trim().ToUpper();
                 int userSelection;
@@ -72,6 +75,8 @@ namespace CSharpConsoleApp
                     {
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
+                    Console.WriteLine("Press enter to return to menu.");
+                    Console.ReadLine();
                 }
                 else if (userSelection == 3)
                 {
