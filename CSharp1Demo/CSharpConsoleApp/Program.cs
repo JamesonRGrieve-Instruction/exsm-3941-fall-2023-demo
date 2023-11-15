@@ -39,26 +39,11 @@ namespace CSharpConsoleApp
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
-                Console.Write("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
-                userInput = Console.ReadLine().Trim().ToUpper();
-                int userSelection;
-                while (!int.TryParse(userInput, out userSelection))
-                {
-                    Console.Write("Invalid input, please try again: ");
-                    userInput = Console.ReadLine().Trim().ToUpper();
-                }
+                int userSelection = GetValidInt("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
                 if (userSelection == 1)
                 {
                     // Create
-                    string newItem;
-                    Console.Write("Please enter a number to add: ");
-                    newItem = Console.ReadLine().Trim().ToUpper();
-                    int newItemParsed;
-                    while (!int.TryParse(newItem, out newItemParsed))
-                    {
-                        Console.Write("Invalid input, please try again: ");
-                        newItem = Console.ReadLine().Trim().ToUpper();
-                    }
+                    int newItemParsed = GetValidInt("Please enter a number to add: ");
                     if (numberArrayLogicalSize < numberArray.Length)
                     {
                         numberArray[numberArrayLogicalSize] = newItemParsed;
@@ -84,35 +69,45 @@ namespace CSharpConsoleApp
                     {
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
-                    string modifyIndex;
-                    Console.Write("Please make a selection to modify: ");
-                    modifyIndex = Console.ReadLine().Trim().ToUpper();
-                    int modifyIndexParsed;
-                    while (!int.TryParse(modifyIndex, out modifyIndexParsed))
-                    {
-                        Console.Write("Invalid input, please try again: ");
-                        modifyIndex = Console.ReadLine().Trim().ToUpper();
-                    }
-                    string newItem;
-                    Console.Write($"Please enter a number to overwrite postion {modifyIndex} ({numberArray[modifyIndexParsed-1]}) with: ");
-                    newItem = Console.ReadLine().Trim().ToUpper();
-                    int newItemParsed;
-                    while (!int.TryParse(newItem, out newItemParsed))
-                    {
-                        Console.Write("Invalid input, please try again: ");
-                        newItem = Console.ReadLine().Trim().ToUpper();
-                    }
+
+                    int modifyIndexParsed = GetValidInt("Please make a selection to modify: ");
+                    int newItemParsed = GetValidInt($"Please enter a number to overwrite postion {modifyIndexParsed} ({numberArray[modifyIndexParsed - 1]}) with: ");
                     numberArray[modifyIndexParsed - 1] = newItemParsed;
                 }
                 else if (userSelection == 4)
                 {
-
+                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    {
+                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
+                    }
+                    int deleteIndexParsed = GetValidInt("Please make a selection to modify: ");
+                    numberArray[deleteIndexParsed - 1] = 0;
+                    numberArrayLogicalSize--;
                 }
                 else if (userSelection == 5)
                 {
 
                 }
             } while (userInput != "0");
+        }
+        public static int GetValidInt(string prompt)
+        {
+            string input;
+            Console.Write(prompt);
+            input = Console.ReadLine().Trim().ToUpper();
+            int parsedInput;
+            while (!int.TryParse(input, out parsedInput))
+            {
+                Console.Write("Invalid input, please enter a integer (whole number) and try again: ");
+                input = Console.ReadLine().Trim().ToUpper();
+            }
+            return parsedInput;
+        }
+        public static void SwapArrayIndexes(int[] array, int indexA, int indexB)
+        {
+            int temp = array[indexA];
+            array[indexA] = array[indexB];
+            array[indexB] = temp;
         }
     }
 }
