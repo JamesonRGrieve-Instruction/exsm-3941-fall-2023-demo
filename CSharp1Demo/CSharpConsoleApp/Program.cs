@@ -33,13 +33,13 @@ namespace CSharpConsoleApp
 
 
 
-            string userInput = "";
+            int userSelection;
             do
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
                 Console.Clear();
-                int userSelection = GetValidInt("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
+                userSelection = GetValidInt("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
                 if (userSelection == 1)
                 {
                     // Create
@@ -93,9 +93,9 @@ namespace CSharpConsoleApp
                 }
                 else if (userSelection == 5)
                 {
-
+                    Array.Sort(numberArray, null, 0, numberArrayLogicalSize);
                 }
-            } while (userInput != "0");
+            } while (userSelection != 0);
         }
         public static int GetValidInt(string prompt)
         {
