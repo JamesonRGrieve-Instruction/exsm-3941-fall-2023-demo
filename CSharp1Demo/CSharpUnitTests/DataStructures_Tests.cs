@@ -1,6 +1,6 @@
 ﻿namespace CSharpUnitTests
 {
-    public class ConsoleAppTests
+    public class DataStructures_Tests
     {
         [Theory]
         [InlineData(8, 5)]
