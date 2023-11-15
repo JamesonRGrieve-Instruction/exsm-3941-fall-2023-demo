@@ -57,7 +57,7 @@ namespace CSharpConsoleApp
                     while (!int.TryParse(newItem, out newItemParsed))
                     {
                         Console.Write("Invalid input, please try again: ");
-                        userInput = Console.ReadLine().Trim().ToUpper();
+                        newItem = Console.ReadLine().Trim().ToUpper();
                     }
                     if (numberArrayLogicalSize < numberArray.Length)
                     {
@@ -80,7 +80,29 @@ namespace CSharpConsoleApp
                 }
                 else if (userSelection == 3)
                 {
-
+                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    {
+                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
+                    }
+                    string modifyIndex;
+                    Console.Write("Please make a selection to modify: ");
+                    modifyIndex = Console.ReadLine().Trim().ToUpper();
+                    int modifyIndexParsed;
+                    while (!int.TryParse(modifyIndex, out modifyIndexParsed))
+                    {
+                        Console.Write("Invalid input, please try again: ");
+                        modifyIndex = Console.ReadLine().Trim().ToUpper();
+                    }
+                    string newItem;
+                    Console.Write($"Please enter a number to overwrite postion {modifyIndex} ({numberArray[modifyIndexParsed-1]}) with: ");
+                    newItem = Console.ReadLine().Trim().ToUpper();
+                    int newItemParsed;
+                    while (!int.TryParse(newItem, out newItemParsed))
+                    {
+                        Console.Write("Invalid input, please try again: ");
+                        newItem = Console.ReadLine().Trim().ToUpper();
+                    }
+                    numberArray[modifyIndexParsed - 1] = newItemParsed;
                 }
                 else if (userSelection == 4)
                 {
