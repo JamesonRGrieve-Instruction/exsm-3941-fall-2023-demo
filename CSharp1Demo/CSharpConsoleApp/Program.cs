@@ -26,12 +26,7 @@ namespace CSharpConsoleApp
             int emptyInt;
 
             // Using physical and logical sizes.
-            int[] numberArray = new int[10];
-            int numberArrayLogicalSize = 0;
-
-
-
-
+            List<int> numberArray = new List<int>();
 
             int userSelection;
             do
@@ -44,19 +39,11 @@ namespace CSharpConsoleApp
                 {
                     // Create
                     int newItemParsed = GetValidInt("Please enter a number to add: ");
-                    if (numberArrayLogicalSize < numberArray.Length)
-                    {
-                        numberArray[numberArrayLogicalSize] = newItemParsed;
-                        numberArrayLogicalSize++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Array is full, sorry!");
-                    }
+                    numberArray.Add(newItemParsed);
                 }
                 else if (userSelection == 2)
                 {
-                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    for (int i = 0; i < numberArray.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
@@ -65,7 +52,7 @@ namespace CSharpConsoleApp
                 }
                 else if (userSelection == 3)
                 {
-                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    for (int i = 0; i < numberArray.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
@@ -76,24 +63,16 @@ namespace CSharpConsoleApp
                 }
                 else if (userSelection == 4)
                 {
-                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    for (int i = 0; i < numberArray.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}) {numberArray[i]}");
                     }
                     int deleteIndexParsed = GetValidInt("Please make a selection to modify: ");
-                    while (deleteIndexParsed < numberArrayLogicalSize)
-                    {
-                        // A little counter-intuitive, this is actually the index we are targeting and the next one (since this varialbe is "English" or 1-indexed.
-                        SwapArrayIndexes(numberArray, deleteIndexParsed - 1, deleteIndexParsed);
-                        deleteIndexParsed++;
-                    }
-                    // This is a little redundant, as the user will never see it after the logical size shrinks.
-                    //numberArray[deleteIndexParsed - 1] = 0;
-                    numberArrayLogicalSize--;
+                    numberArray.RemoveAt(deleteIndexParsed - 1);
                 }
                 else if (userSelection == 5)
                 {
-                    Array.Sort(numberArray, null, 0, numberArrayLogicalSize);
+                    numberArray.Sort();
                 }
             } while (userSelection != 0);
         }
@@ -109,12 +88,6 @@ namespace CSharpConsoleApp
                 input = Console.ReadLine().Trim().ToUpper();
             }
             return parsedInput;
-        }
-        public static void SwapArrayIndexes(int[] array, int indexA, int indexB)
-        {
-            int temp = array[indexA];
-            array[indexA] = array[indexB];
-            array[indexB] = temp;
         }
     }
 }
