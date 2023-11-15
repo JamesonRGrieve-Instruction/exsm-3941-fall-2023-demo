@@ -68,7 +68,10 @@ namespace CSharpConsoleApp
                 }
                 else if (userSelection == 2)
                 {
-
+                    for (int i = 0; i < numberArrayLogicalSize; i++)
+                    {
+                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
+                    }
                 }
                 else if (userSelection == 3)
                 {
@@ -86,33 +89,3 @@ namespace CSharpConsoleApp
         }
     }
 }
-
-
-
-/*
-
-Console.Write("Please enter a number to store, 'VIEW' to view the numbers or 'QUIT' to quit.");
-                userInput = Console.ReadLine().ToUpper().Trim();
-                int parsed = 0;
-                if (int.TryParse(userInput, out parsed))
-                {
-                    // Add to the array.
-                    // Make sure the array isn't full.
-                    
-                }
-                else
-                {
-                    // Deal with "Commands".
-                    if (userInput != "VIEW" && userInput != "QUIT")
-                    {
-                        Console.WriteLine("Invalid input, please try again.");
-                    }
-                    else if (userInput == "VIEW")
-                    {
-                        for (int i = 0; i < numberArrayLogicalSize; i++)
-                        {
-                            Console.WriteLine($"{i+1}) {numberArray[i]}");
-                        }
-                    }
-                }
-*/
