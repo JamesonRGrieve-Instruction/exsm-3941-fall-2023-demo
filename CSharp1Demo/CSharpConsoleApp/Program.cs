@@ -30,7 +30,7 @@ namespace CSharpConsoleApp
                     Console.WriteLine(chars[i][j]);
                 }
             }
-                List<string> names = new List<string>
+            List<string> names = new List<string>
             {
                 "Joe Smith",
                 "Sally Sue",
@@ -40,13 +40,13 @@ namespace CSharpConsoleApp
             chars.RemoveAt(1);
             names.Add("John Doe");
             chars.Add(new char[] { ' ', ' ' });
-            for (int i = 0 ; i < names.Count ; i++)
+            for (int i = 0; i < names.Count; i++)
             {
                 Console.WriteLine($"{names[i]} has {chars[i].Length} characters.");
             }
 
             // Dynamic Typed Lists - please don't do this, but it's technically possible.
-            List<object> list = new List<object> { 
+            List<object> list = new List<object> {
                 1,
                 "Hello",
                 true
@@ -55,7 +55,7 @@ namespace CSharpConsoleApp
             int myNumber = 0;
             foreach (object item in list)
             {
-                if (item.GetType()  == typeof(int))
+                if (item.GetType() == typeof(int))
                 {
                     myNumber += (int)item;
                 }
