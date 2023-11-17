@@ -6,79 +6,38 @@ namespace CSharpConsoleApp
     {
         static void Main(string[] args)
         {
-            // Max length of 2.
-            string[] stringArray =
-            {
-                "Hello",
-                "World"
+            // Two Dimmensional Arrays must be all the same length (# of rows and columns - must be a "rectangle").
+            char[,] TicTacToe = {
+                { ' ', ' ', ' ' },
+                { ' ', ' ', ' ' },
+                { ' ', ' ', ' ' }
             };
 
-            // Max length of 10 (default values - null).
-            string[] emptyArray = new string[10];
+            char[,] AnotherTicTacToe = new char[3, 3];
 
-            // Null.
-            string emptyString;
-
-            // Max length of 10 (default values - 0).
-            int[] emptyIntArray = new int[10];
-
-            // 0.
-            int emptyInt;
-
-            // Using physical and logical sizes.
-            List<DateTime> numberArray = new List<DateTime>();
-
-            DateTime now = DateTime.Now;
-            TimeSpan difference = new TimeSpan(8, 0, 0, 0);
-            Console.WriteLine($"Exactly one week and one day from today will be {now.Add(difference)}.");
-
-            int userSelection;
-            do
+            // Nested Collections can be different lengths.
+            List<char[]> chars = new List<char[]>
             {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
-                //Console.Clear();
-                userSelection = GetValidInt("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
-                if (userSelection == 1)
-                {
-                    // Create
-                    DateTime dateTime = DateTime.Now;
-                    numberArray.Add(dateTime);
-                }
-                else if (userSelection == 2)
-                {
-                    for (int i = 0; i < numberArray.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}, {numberArray[i].Ticks} ticks.");
-                    }
-                    Console.WriteLine("Press enter to return to menu.");
-                    Console.ReadLine();
-                }
-                else if (userSelection == 3)
-                {
-                    for (int i = 0; i < numberArray.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
-                    }
+                new char[] { ' ', ' ', ' ' },
+                new char[] { ' ', ' ', ' ', ' ' },
+                new char[] { ' ', ' ', ' ' }
+            };
 
-                    int modifyIndexParsed = GetValidInt("Please make a selection to modify: ");
-                    DateTime newItemParsed = DateTime.Now;
-                    numberArray[modifyIndexParsed - 1] = newItemParsed;
-                }
-                else if (userSelection == 4)
+            // Dynamic Typed Lists - please don't do this, but it's technically possible.
+            List<object> list = new List<object> { 
+                1,
+                "Hello",
+                true
+            };
+
+            int myNumber = 0;
+            foreach (object item in list)
+            {
+                if (item.GetType()  == typeof(int))
                 {
-                    for (int i = 0; i < numberArray.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
-                    }
-                    int deleteIndexParsed = GetValidInt("Please make a selection to delete: ");
-                    numberArray.RemoveAt(deleteIndexParsed - 1);
+                    myNumber += (int)item;
                 }
-                else if (userSelection == 5)
-                {
-                    numberArray.Sort();
-                }
-            } while (userSelection != 0);
+            }
         }
         public static int GetValidInt(string prompt)
         {
