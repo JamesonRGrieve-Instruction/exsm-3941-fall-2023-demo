@@ -6,10 +6,9 @@ namespace CSharpConsoleApp
     {
         static void Main(string[] args)
         {
-            int playAgain = 0;
+            int playAgain = 2, maximum = 0;
             Random rng = new Random();
-            Console.WriteLine("--- Higher / Lower Guessing Game ---\nEnter a maximum value to play to.");
-            int maximum = GetRangedInput(1, 1000);
+            Console.WriteLine("--- Higher / Lower Guessing Game ---");
             do
             {
                 if (playAgain == 2)
@@ -58,7 +57,7 @@ namespace CSharpConsoleApp
             Console.Write($"Please enter a whole number between {min} and {max}, inclusive: ");
             while (!int.TryParse(Console.ReadLine(), out toReturn) || !ValidateRangedInput(min, max, toReturn))
             {
-                Console.Write($"Error, please try again. Please enter a whole number between {min} and {max}, inclusive.");
+                Console.Write($"Error, please try again. Please enter a whole number between {min} and {max}, inclusive: ");
             }
             return toReturn;
         }
