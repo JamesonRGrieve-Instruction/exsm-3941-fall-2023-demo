@@ -22,6 +22,20 @@ namespace CSharpConsoleApp
                 new char[] { ' ', ' ', ' ', ' ' },
                 new char[] { ' ', ' ', ' ' }
             };
+            List<string> names = new List<string>
+            {
+                "Joe Smith",
+                "Sally Sue",
+                "Bob Young"
+            };
+            names.RemoveAt(1);
+            chars.RemoveAt(1);
+            names.Add("John Doe");
+            chars.Add(new char[] { ' ', ' ' });
+            for (int i = 0 ; i < names.Count ; i++)
+            {
+                Console.WriteLine($"{names[i]} has {chars[i].Length} characters.");
+            }
 
             // Dynamic Typed Lists - please don't do this, but it's technically possible.
             List<object> list = new List<object> { 
