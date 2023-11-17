@@ -22,7 +22,15 @@ namespace CSharpConsoleApp
                 new char[] { ' ', ' ', ' ', ' ' },
                 new char[] { ' ', ' ', ' ' }
             };
-            List<string> names = new List<string>
+            Console.WriteLine(chars[1][2]);
+            for (int i = 0; i < chars.Count; i++)
+            {
+                for (int j = 0; j < chars[1].Length; j++)
+                {
+                    Console.WriteLine(chars[i][j]);
+                }
+            }
+                List<string> names = new List<string>
             {
                 "Joe Smith",
                 "Sally Sue",
