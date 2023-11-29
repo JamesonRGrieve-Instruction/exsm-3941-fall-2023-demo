@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization.Formatters;
+﻿using System;
+using System.Runtime.Serialization.Formatters;
 
 namespace CSharpConsoleApp
 {
@@ -6,59 +7,43 @@ namespace CSharpConsoleApp
     {
         static void Main(string[] args)
         {
-            // Two Dimmensional Arrays must be all the same length (# of rows and columns - must be a "rectangle").
-            char[,] TicTacToe = {
-                { ' ', ' ', ' ' },
-                { ' ', ' ', ' ' },
-                { ' ', ' ', ' ' }
-            };
-
-            char[,] AnotherTicTacToe = new char[3, 3];
-
-            // Nested Collections can be different lengths.
-            List<char[]> chars = new List<char[]>
+            DateTime[] dateTimes = new DateTime[5];
+            Console.WriteLine(dateTimes[0]);
+            Console.WriteLine(dateTimes.Length);
+            using (StreamWriter writer = new StreamWriter("test.txt", false))
             {
-                new char[] { ' ', ' ', ' ' },
-                new char[] { ' ', ' ', ' ', ' ' },
-                new char[] { ' ', ' ', ' ' }
-            };
-            Console.WriteLine(chars[1][2]);
-            for (int i = 0; i < chars.Count; i++)
+  
+                    // Write each element of the array to the file
+                    foreach (var element in dateTimes)
+                    {
+                        if (element != null && !string.IsNullOrEmpty(element.ToString()))
+                        {
+                            writer.Write(element);
+                            writer.Write(","); // Add a space or any other separator between elements
+                        }
+                    }
+
+                    writer.WriteLine(); // Move to the next line for the next array
+  
+
+            }
+            try
             {
-                for (int j = 0; j < chars[1].Length; j++)
+                // Use a StreamReader to read from the file
+                using (StreamReader reader = new StreamReader("test.txt"))
                 {
-                    Console.WriteLine(chars[i][j]);
+                    // Read Line 1 which has usernames, split the string and add each name to an array
+                    DateTime[] read = reader.ReadLine().Split(',').Select(x => DateTime.Parse(x)).ToArray();
+                    DateTime[] parsed = new DateTime[read.Length];                   
                 }
             }
-            List<string> names = new List<string>
+            catch (IOException ex)
             {
-                "Joe Smith",
-                "Sally Sue",
-                "Bob Young"
-            };
-            names.RemoveAt(1);
-            chars.RemoveAt(1);
-            names.Add("John Doe");
-            chars.Add(new char[] { ' ', ' ' });
-            for (int i = 0; i < names.Count; i++)
-            {
-                Console.WriteLine($"{names[i]} has {chars[i].Length} characters.");
+                Console.WriteLine($"Error reading file: {ex.Message}");
             }
-
-            // Dynamic Typed Lists - please don't do this, but it's technically possible.
-            List<object> list = new List<object> {
-                1,
-                "Hello",
-                true
-            };
-
-            int myNumber = 0;
-            foreach (object item in list)
+            catch (Exception ex)
             {
-                if (item.GetType() == typeof(int))
-                {
-                    myNumber += (int)item;
-                }
+                Console.WriteLine($"Error reading file: {ex.Message}");
             }
         }
         public static int GetValidInt(string prompt)
