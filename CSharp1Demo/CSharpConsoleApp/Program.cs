@@ -6,8 +6,10 @@ namespace CSharpConsoleApp
     {
         static void Main(string[] args)
         {
+            const int exampleInt = 42;
+
             // All of these are types of 'collection', essentially they add functionality onto a base 'collection' type that stores values. Thus, they behave slightly differently.
-            List<int> intList = new List<int>() { 10, 11, 12 };
+            List<int> intList = new List<int>() { 10, exampleInt, 11, 12 };
             // HashSets enforce the rule that all items must be unique.
             HashSet<int> intHashSet = new HashSet<int>();
             // SortedSet is a HashSet that also enforces that the items must be in order.
