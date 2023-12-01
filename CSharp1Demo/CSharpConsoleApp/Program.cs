@@ -53,25 +53,37 @@ namespace CSharpConsoleApp
                             if (innerUserChoice == "1")
                             {
                                 // View
-                                Console.WriteLine("View.");
+                                foreach(string word in words[userIndex])
+                                {
+                                    Console.WriteLine(word);
+                                }
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice == "2")
                             {
                                 // Add
-                                Console.WriteLine("Add.");
+                                Console.Write("Please enter the word to add: ");
+                                string word = Console.ReadLine().Trim();
+                                if (word.Length > 0 && !word.Contains(' '))
+                                {
+                                    words[userIndex].Add(word);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("No word or multiple words entered, returning to menu.");
+                                }
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice == "3")
                             {
                                 // Clear
-                                Console.WriteLine("Clear.");
+                                words[userIndex].Clear();
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice == "4")
                             {
                                 // Info
-                                Console.WriteLine("Info.");
+                                Console.WriteLine($"User {usernames[userIndex]} created at {timestamps[userIndex].ToLongTimeString()} on {timestamps[userIndex].ToLongDateString()}.");
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice != "5")
@@ -85,15 +97,23 @@ namespace CSharpConsoleApp
                 else if (outerUserChoice == "2")
                 {
                     // Register
-                    string username = GetValidUsername(usernames);
-                    string password = GetValidPassword();
+                    if (logicalSize < 3)
+                    {
+                        string username = GetValidUsername(usernames);
+                        string password = GetValidPassword();
 
-                    usernames[logicalSize] = username;
-                    passwords[logicalSize] = password;
-                    timestamps[logicalSize] = DateTime.Now;
-                    words[logicalSize] = new List<string>();
+                        usernames[logicalSize] = username;
+                        passwords[logicalSize] = password;
+                        timestamps[logicalSize] = DateTime.Now;
+                        words[logicalSize] = new List<string>();
 
-                    logicalSize++;
+                        logicalSize++;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Maximum users stored, returning to menu.");
+                        Console.ReadLine();
+                    }
                 }
                 else if (outerUserChoice != "3")
                 {
