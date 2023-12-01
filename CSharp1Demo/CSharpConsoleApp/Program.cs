@@ -181,7 +181,7 @@ namespace CSharpConsoleApp
                         containsSymbol = true;
                     }
                 }
-                valid = containsDigit && containsUpper && containsLower && containsSymbol;
+                valid = valid && containsDigit && containsUpper && containsLower && containsSymbol;
                 if (!valid)
                 {
                     Console.WriteLine("Your chosen password is invalid, it must be at least 5 characters long containing at least one uppercase letter, lowercase letter, digit and symbol. It cannot be the same as the username.");
