@@ -100,7 +100,7 @@ namespace CSharpConsoleApp
                     if (logicalSize < 3)
                     {
                         string username = GetValidUsername(usernames);
-                        string password = GetValidPassword();
+                        string password = GetValidPassword(username);
 
                         usernames[logicalSize] = username;
                         passwords[logicalSize] = password;
@@ -144,7 +144,7 @@ namespace CSharpConsoleApp
             } while (!valid);
             return username;
         }
-        static string GetValidPassword()
+        static string GetValidPassword(string pairedUsername)
         {
             string password;
             bool valid = false;
@@ -154,6 +154,10 @@ namespace CSharpConsoleApp
                 password = Console.ReadLine().Trim();
                 valid = true;
                 if (password.Length < 5)
+                {
+                    valid = false;
+                }
+                if (pairedUsername == password)
                 {
                     valid = false;
                 }
@@ -180,7 +184,7 @@ namespace CSharpConsoleApp
                 valid = containsDigit && containsUpper && containsLower && containsSymbol;
                 if (!valid)
                 {
-                    Console.WriteLine("Your chosen password is invalid, it must be at least 5 characters long containing at least one uppercase letter, lowercase letter, digit and symbol.");
+                    Console.WriteLine("Your chosen password is invalid, it must be at least 5 characters long containing at least one uppercase letter, lowercase letter, digit and symbol. It cannot be the same as the username.");
                 }
             } while (!valid);
             return password;
