@@ -6,92 +6,78 @@ namespace CSharpConsoleApp
     {
         static void Main(string[] args)
         {
-            // Max length of 2.
-            string[] stringArray =
-            {
-                "Hello",
-                "World"
-            };
+            string[] usernames = new string[3];
+            string[] password = new string[3];
+            DateTime[] timestamps = new DateTime[3];
+            List<string>[] words = new List<string>[3];
 
-            // Max length of 10 (default values - null).
-            string[] emptyArray = new string[10];
+            int logicalSize = 0;
+            string outerUserChoice = "";
 
-            // Null.
-            string emptyString;
-
-            // Max length of 10 (default values - 0).
-            int[] emptyIntArray = new int[10];
-
-            // 0.
-            int emptyInt;
-
-            // Using physical and logical sizes.
-            List<DateTime> numberArray = new List<DateTime>();
-
-            DateTime now = DateTime.Now;
-            TimeSpan difference = new TimeSpan(8, 0, 0, 0);
-            Console.WriteLine($"Exactly one week and one day from today will be {now.Add(difference)}.");
-
-            int userSelection;
             do
             {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
-                //Console.Clear();
-                userSelection = GetValidInt("--- Welcome to Number Storage ---\n1. Create - Add an Item\n2. Read - View the Items\n3. Update - Change an Item\n4. Delete - Remove an Item\n5. Sort - Organize the Items\n0. Exit\nPlease make a selection: ");
-                if (userSelection == 1)
+                // Login/Register Menu
+                Console.Clear();
+                Console.Write("Welcome to The Words Program!\n1. Login\n2. Register\n3. Exit\n\tSelection: ");
+                outerUserChoice = Console.ReadLine().Trim();
+
+                if (outerUserChoice == "1")
                 {
-                    // Create
-                    DateTime dateTime = DateTime.Now;
-                    numberArray.Add(dateTime);
-                }
-                else if (userSelection == 2)
-                {
-                    for (int i = 0; i < numberArray.Count; i++)
+                    // Login
+                    Console.WriteLine("Login.");
+                    Console.ReadLine();
+                    string innerUserChoice = "";
+                    do
                     {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}, {numberArray[i].Ticks} ticks.");
-                    }
-                    Console.WriteLine("Press enter to return to menu.");
+                        // User/Words Menu
+                        Console.Clear();
+                        Console.Write($"Welcome, {usernames}!\n1. View Words\n2. Add Word\n3. Clear Words\n4. Show Account Info\n5. Logout\n\tSelection: ");
+                        innerUserChoice = Console.ReadLine().Trim();
+                        if (innerUserChoice == "1")
+                        {
+                            // View
+                            Console.WriteLine("View.");
+                            Console.ReadLine();
+                        }
+                        else if (innerUserChoice == "2")
+                        {
+                            // Add
+                            Console.WriteLine("Add.");
+                            Console.ReadLine();
+                        }
+                        else if (innerUserChoice == "3")
+                        {
+                            // Clear
+                            Console.WriteLine("Clear.");
+                            Console.ReadLine();
+                        }
+                        else if (innerUserChoice == "4")
+                        {
+                            // Info
+                            Console.WriteLine("Info.");
+                            Console.ReadLine();
+                        }
+                        else if (innerUserChoice != "5")
+                        {
+                            Console.WriteLine("Invalid selection made, press enter to reload the menu.");
+                            Console.ReadLine();
+                        }
+                    } while (innerUserChoice != "5");
+                }
+                else if (outerUserChoice == "2")
+                {
+                    // Register
+                    Console.WriteLine("Register.");
                     Console.ReadLine();
                 }
-                else if (userSelection == 3)
+                else if (outerUserChoice != "3")
                 {
-                    for (int i = 0; i < numberArray.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
-                    }
+                    Console.WriteLine("Invalid selection made, press enter to reload the menu.");
+                    Console.ReadLine();
+                }
+            } while (outerUserChoice!= "3");
 
-                    int modifyIndexParsed = GetValidInt("Please make a selection to modify: ");
-                    DateTime newItemParsed = DateTime.Now;
-                    numberArray[modifyIndexParsed - 1] = newItemParsed;
-                }
-                else if (userSelection == 4)
-                {
-                    for (int i = 0; i < numberArray.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}) {numberArray[i]}");
-                    }
-                    int deleteIndexParsed = GetValidInt("Please make a selection to delete: ");
-                    numberArray.RemoveAt(deleteIndexParsed - 1);
-                }
-                else if (userSelection == 5)
-                {
-                    numberArray.Sort();
-                }
-            } while (userSelection != 0);
-        }
-        public static int GetValidInt(string prompt)
-        {
-            string input;
-            Console.Write(prompt);
-            input = Console.ReadLine().Trim().ToUpper();
-            int parsedInput;
-            while (!int.TryParse(input, out parsedInput))
-            {
-                Console.Write("Invalid input, please enter a integer (whole number) and try again: ");
-                input = Console.ReadLine().Trim().ToUpper();
-            }
-            return parsedInput;
+
         }
     }
 }
