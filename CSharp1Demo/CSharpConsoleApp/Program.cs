@@ -3,15 +3,19 @@ using System.Runtime.Serialization.Formatters;
 
 namespace CSharpConsoleApp
 {
+    public struct User
+    {
+        public string username;
+        public string password;
+        public DateTime timestamp;
+        public List<string> words;
+    }
+
     public class Program
     {
         static void Main(string[] args)
         {
-            string[] usernames = new string[3];
-            string[] passwords = new string[3];
-            DateTime[] timestamps = new DateTime[3];
-            List<string>[] words = new List<string>[3];
-
+            User[] users = new User[3];
             int logicalSize = 0;
             string outerUserChoice = "";
 
@@ -31,7 +35,7 @@ namespace CSharpConsoleApp
                     string password = Console.ReadLine().Trim();
                     int userIndex = 0;
                     // This prevents additional iterations in the event we uncover a match. It would be a bit more maintainbale as a while loop, but I left it as a for loop to demonstrate that additional conditions can be added.
-                    for (int i = 0; i <= logicalSize && !(usernames[i] == username && passwords[i] == password); i++)
+                    for (int i = 0; i <= logicalSize && !(users[i].username == username && users[i].password == password); i++)
                     {
                         userIndex = i+1;
                     }
@@ -53,7 +57,7 @@ namespace CSharpConsoleApp
                             if (innerUserChoice == "1")
                             {
                                 // View
-                                foreach(string word in words[userIndex])
+                                foreach(string word in users[userIndex].words)
                                 {
                                     Console.WriteLine(word);
                                 }
@@ -66,7 +70,7 @@ namespace CSharpConsoleApp
                                 string word = Console.ReadLine().Trim();
                                 if (word.Length > 0 && !word.Contains(' '))
                                 {
-                                    words[userIndex].Add(word);
+                                    users[userIndex].words.Add(word);
                                 }
                                 else
                                 {
@@ -77,13 +81,13 @@ namespace CSharpConsoleApp
                             else if (innerUserChoice == "3")
                             {
                                 // Clear
-                                words[userIndex].Clear();
+                                users[userIndex].words.Clear();
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice == "4")
                             {
                                 // Info
-                                Console.WriteLine($"User {usernames[userIndex]} created at {timestamps[userIndex].ToLongTimeString()} on {timestamps[userIndex].ToLongDateString()}. This was {DateTime.Now-timestamps[userIndex]} ago.");
+                                Console.WriteLine($"User {users[userIndex].username} created at {users[userIndex].timestamp.ToLongTimeString()} on {users[userIndex].timestamp.ToLongDateString()}. This was {DateTime.Now-users[userIndex].timestamp} ago.");
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice != "5")
@@ -99,13 +103,13 @@ namespace CSharpConsoleApp
                     // Register
                     if (logicalSize < 3)
                     {
-                        string username = GetValidUsername(usernames);
+                        string username = GetValidUsername(users);
                         string password = GetValidPassword(username);
 
-                        usernames[logicalSize] = username;
-                        passwords[logicalSize] = password;
-                        timestamps[logicalSize] = DateTime.Now;
-                        words[logicalSize] = new List<string>();
+                        users[logicalSize].username = username;
+                        users[logicalSize].password = password;
+                        users[logicalSize].timestamp = DateTime.Now;
+                        users[logicalSize].words = new List<string>();
 
                         logicalSize++;
                     }
@@ -124,7 +128,7 @@ namespace CSharpConsoleApp
 
 
         }
-        static string GetValidUsername(string[] existingUsernames)
+        static string GetValidUsername(User[] existingUsers)
         {
             string username;
             bool valid = false;
@@ -133,7 +137,14 @@ namespace CSharpConsoleApp
                 Console.Write("Please enter your desired username: ");
                 username = Console.ReadLine().Trim();
                 valid = true;
-                if (string.IsNullOrWhiteSpace(username) || existingUsernames.Contains(username))
+                foreach (User user in existingUsers)
+                {
+                    if (user.username == username)
+                    {
+                        valid = false;
+                    }
+                }
+                if (string.IsNullOrWhiteSpace(username))
                 {
                     valid = false;
                 }
