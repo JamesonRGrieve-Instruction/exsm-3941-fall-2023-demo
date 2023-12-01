@@ -83,7 +83,7 @@ namespace CSharpConsoleApp
                             else if (innerUserChoice == "4")
                             {
                                 // Info
-                                Console.WriteLine($"User {usernames[userIndex]} created at {timestamps[userIndex].ToLongTimeString()} on {timestamps[userIndex].ToLongDateString()}.");
+                                Console.WriteLine($"User {usernames[userIndex]} created at {timestamps[userIndex].ToLongTimeString()} on {timestamps[userIndex].ToLongDateString()}. This was {DateTime.Now-timestamps[userIndex]} ago.");
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice != "5")
