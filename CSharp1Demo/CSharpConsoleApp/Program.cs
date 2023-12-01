@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization.Formatters;
+﻿using System;
+using System.Runtime.Serialization.Formatters;
 
 namespace CSharpConsoleApp
 {
@@ -7,7 +8,7 @@ namespace CSharpConsoleApp
         static void Main(string[] args)
         {
             string[] usernames = new string[3];
-            string[] password = new string[3];
+            string[] passwords = new string[3];
             DateTime[] timestamps = new DateTime[3];
             List<string>[] words = new List<string>[3];
 
@@ -24,60 +25,143 @@ namespace CSharpConsoleApp
                 if (outerUserChoice == "1")
                 {
                     // Login
-                    Console.WriteLine("Login.");
-                    Console.ReadLine();
-                    string innerUserChoice = "";
-                    do
+                    Console.Write("Please enter your username: ");
+                    string username = Console.ReadLine().Trim();
+                    Console.Write("Please enter your password: ");
+                    string password = Console.ReadLine().Trim();
+                    int userIndex = 0;
+                    for (int i = 0; i <= logicalSize && usernames[i] != username && passwords[i] != password; i++)
                     {
-                        // User/Words Menu
-                        Console.Clear();
-                        Console.Write($"Welcome, {usernames}!\n1. View Words\n2. Add Word\n3. Clear Words\n4. Show Account Info\n5. Logout\n\tSelection: ");
-                        innerUserChoice = Console.ReadLine().Trim();
-                        if (innerUserChoice == "1")
+                        userIndex = i+1;
+                    }
+                    if (userIndex > logicalSize)
+                    {
+                        Console.WriteLine("Invalid credentials, returning to menu.");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        string innerUserChoice = "";
+                        do
                         {
-                            // View
-                            Console.WriteLine("View.");
-                            Console.ReadLine();
-                        }
-                        else if (innerUserChoice == "2")
-                        {
-                            // Add
-                            Console.WriteLine("Add.");
-                            Console.ReadLine();
-                        }
-                        else if (innerUserChoice == "3")
-                        {
-                            // Clear
-                            Console.WriteLine("Clear.");
-                            Console.ReadLine();
-                        }
-                        else if (innerUserChoice == "4")
-                        {
-                            // Info
-                            Console.WriteLine("Info.");
-                            Console.ReadLine();
-                        }
-                        else if (innerUserChoice != "5")
-                        {
-                            Console.WriteLine("Invalid selection made, press enter to reload the menu.");
-                            Console.ReadLine();
-                        }
-                    } while (innerUserChoice != "5");
+                            // User/Words Menu
+                            Console.Clear();
+                            Console.Write($"Welcome, {usernames}!\n1. View Words\n2. Add Word\n3. Clear Words\n4. Show Account Info\n5. Logout\n\tSelection: ");
+                            innerUserChoice = Console.ReadLine().Trim();
+                            if (innerUserChoice == "1")
+                            {
+                                // View
+                                Console.WriteLine("View.");
+                                Console.ReadLine();
+                            }
+                            else if (innerUserChoice == "2")
+                            {
+                                // Add
+                                Console.WriteLine("Add.");
+                                Console.ReadLine();
+                            }
+                            else if (innerUserChoice == "3")
+                            {
+                                // Clear
+                                Console.WriteLine("Clear.");
+                                Console.ReadLine();
+                            }
+                            else if (innerUserChoice == "4")
+                            {
+                                // Info
+                                Console.WriteLine("Info.");
+                                Console.ReadLine();
+                            }
+                            else if (innerUserChoice != "5")
+                            {
+                                Console.WriteLine("Invalid selection made, press enter to reload the menu.");
+                                Console.ReadLine();
+                            }
+                        } while (innerUserChoice != "5");
+                    }
                 }
                 else if (outerUserChoice == "2")
                 {
                     // Register
-                    Console.WriteLine("Register.");
-                    Console.ReadLine();
+                    string username = GetValidUsername(usernames);
+                    string password = GetValidPassword();
+
+                    usernames[logicalSize] = username;
+                    passwords[logicalSize] = password;
+                    timestamps[logicalSize] = DateTime.Now;
+                    words[logicalSize] = new List<string>();
+
+                    logicalSize++;
                 }
                 else if (outerUserChoice != "3")
                 {
                     Console.WriteLine("Invalid selection made, press enter to reload the menu.");
                     Console.ReadLine();
                 }
-            } while (outerUserChoice!= "3");
+            } while (outerUserChoice != "3");
 
 
+        }
+        static string GetValidUsername(string[] existingUsernames)
+        {
+            string username;
+            bool valid = false;
+            do
+            {
+                Console.Write("Please enter your desired username: ");
+                username = Console.ReadLine().Trim();
+                valid = true;
+                if (string.IsNullOrWhiteSpace(username) || existingUsernames.Contains(username))
+                {
+                    valid = false;
+                }
+                if (!valid)
+                {
+                    Console.WriteLine("Your chosen username is invalid, it must not already exist and not be empty.");
+                }
+            } while (!valid);
+            return username;
+        }
+        static string GetValidPassword()
+        {
+            string password;
+            bool valid = false;
+            do
+            {
+                Console.Write("Please enter your desired password: ");
+                password = Console.ReadLine().Trim();
+                valid = true;
+                if (password.Length < 5)
+                {
+                    valid = false;
+                }
+                bool containsDigit = false, containsUpper = false, containsLower = false, containsSymbol = false;
+                foreach (char character in password)
+                {
+                    if (char.IsUpper(character))
+                    {
+                        containsUpper = true;
+                    }
+                    if (char.IsLower(character))
+                    {
+                        containsLower = true;
+                    }
+                    if (char.IsDigit(character))
+                    {
+                        containsDigit = true;
+                    }
+                    if (char.IsSymbol(character))
+                    {
+                        containsSymbol = true;
+                    }
+                }
+                valid = containsDigit && containsUpper && containsLower && containsSymbol;
+                if (!valid)
+                {
+                    Console.WriteLine("Your chosen password is invalid, it must be at least 5 characters long containing at least one uppercase letter, lowercase letter, digit and symbol.");
+                }
+            } while (!valid);
+            return password;
         }
     }
 }
