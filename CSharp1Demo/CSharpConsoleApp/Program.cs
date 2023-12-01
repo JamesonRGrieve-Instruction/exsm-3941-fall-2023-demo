@@ -30,10 +30,12 @@ namespace CSharpConsoleApp
                     Console.Write("Please enter your password: ");
                     string password = Console.ReadLine().Trim();
                     int userIndex = 0;
-                    for (int i = 0; i <= logicalSize && usernames[i] != username && passwords[i] != password; i++)
+                    // This prevents additional iterations in the event we uncover a match. It would be a bit more maintainbale as a while loop, but I left it as a for loop to demonstrate that additional conditions can be added.
+                    for (int i = 0; i <= logicalSize && !(usernames[i] == username && passwords[i] == password); i++)
                     {
                         userIndex = i+1;
                     }
+                    // Since we set userIndex to i+1, the last iteration will set it to 1 above the logical size, meaning in that case, we found no matches.
                     if (userIndex > logicalSize)
                     {
                         Console.WriteLine("Invalid credentials, returning to menu.");
@@ -46,7 +48,7 @@ namespace CSharpConsoleApp
                         {
                             // User/Words Menu
                             Console.Clear();
-                            Console.Write($"Welcome, {usernames}!\n1. View Words\n2. Add Word\n3. Clear Words\n4. Show Account Info\n5. Logout\n\tSelection: ");
+                            Console.Write($"Welcome, {username}!\n1. View Words\n2. Add Word\n3. Clear Words\n4. Show Account Info\n5. Logout\n\tSelection: ");
                             innerUserChoice = Console.ReadLine().Trim();
                             if (innerUserChoice == "1")
                             {
