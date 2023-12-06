@@ -64,13 +64,28 @@ namespace CSharpConsoleApp
 
             // 1. Select the last names of the instructor of every course with a odd-numbered course code, in alphabetical order.
             // List<string>
+            List<string> oddNumberedCourseInstructors = Courses
+                .Where(course => int.Parse(course.Code.Substring(1))%2==1) // Odd courses.
+                .Select(course => course.Instructor.LastName) // Last name of instructor.
+                .OrderBy(name => name) // Alphabetical.
+                .ToList();
 
             // 2. Select the count of students in each course who were born in 1998 or 1999.
             // List<int>
+            List<int> students98or99 = Courses
+                .Select(course => course.Students // Mutate the courses
+                    .Count(student => student.BirthDate.Year == 1998 || student.BirthDate.Year == 1999)) // Mutate into the count of students for each course with the applicable birth years.
+                .ToList();
 
             // 3. Select all students with an even birth month, grouped by their course name.
             // List<IGrouping<string, Person>>
-
+            List<IGrouping<string, List<Person>>> evenBirthMonthStudents = Courses
+                .GroupBy(
+                course => course.Name, // Key selector.
+                course => course.Students // Element selector.
+                    .Where(student => student.BirthDate.Month % 2 == 0) // Select a filtered student list as the element (cut out course info and other students).
+                    .ToList())
+                .ToList();
 
         }
 
