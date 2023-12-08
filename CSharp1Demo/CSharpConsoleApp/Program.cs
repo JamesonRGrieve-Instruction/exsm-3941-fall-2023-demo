@@ -16,7 +16,35 @@ namespace CSharpConsoleApp
         static void Main(string[] args)
         {
             User[] users = new User[3];
+            string line = "";
             int logicalSize = 0;
+            const string FILE_NAME = "users.csv";
+            // username,password,timestamp,word1,word2,word3...
+            try
+            {
+                using (StreamReader sr = new StreamReader(FILE_NAME))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] values = line.Split(',');
+                        users[logicalSize] = new User()
+                        {
+                            username = values[0],
+                            password = values[1],
+                            timestamp = DateTime.Parse(values[2]),
+                            words = new List<string>()
+                        };
+                        for (int i = 3; i < values.Length; i++)
+                        {
+                            users[logicalSize].words.Add(values[i]);
+                        }
+                        logicalSize++;
+                    }
+                }
+            }
+            catch (Exception e) { }
+            
+            
             string outerUserChoice = "";
 
             do
@@ -71,6 +99,7 @@ namespace CSharpConsoleApp
                                 if (word.Length > 0 && !word.Contains(' '))
                                 {
                                     users[userIndex].words.Add(word);
+                                    SaveData(users, logicalSize, FILE_NAME);
                                 }
                                 else
                                 {
@@ -82,6 +111,7 @@ namespace CSharpConsoleApp
                             {
                                 // Clear
                                 users[userIndex].words.Clear();
+                                SaveData(users, logicalSize, FILE_NAME);
                                 Console.ReadLine();
                             }
                             else if (innerUserChoice == "4")
@@ -112,6 +142,7 @@ namespace CSharpConsoleApp
                         users[logicalSize].words = new List<string>();
 
                         logicalSize++;
+                        SaveData(users, logicalSize, FILE_NAME);
                     }
                     else
                     {
@@ -199,6 +230,19 @@ namespace CSharpConsoleApp
                 }
             } while (!valid);
             return password;
+        }
+
+        static void SaveData(User[] data, int logicalSize, string fileName)
+        {
+            int written = 0;
+            using (StreamWriter sw = new StreamWriter(fileName))
+            {
+                do
+                {
+                    sw.WriteLine($"{data[written].username},{data[written].password},{data[written].timestamp}{(data[written].words.Count>0?",":"")}{string.Join(',', data[written].words)}");
+                    written++;
+                } while (written < logicalSize);
+            }
         }
     }
 }
