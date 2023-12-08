@@ -2,6 +2,11 @@
 
 namespace CSharpConsoleApp
 {
+    public struct PersonWithDictionaries
+    {
+        public string Name;
+        public Stack<Dictionary<string, string>> Dictionaries;
+    }
     public class Program
     {
         static void Main(string[] args)
@@ -28,8 +33,7 @@ namespace CSharpConsoleApp
             };
             Random rng = new Random();
             // Set up empty queue.
-            Queue<string> queuedNames = new Queue<string>();
-            Queue<Stack<Dictionary<string, string>>> queuedStacks = new Queue<Stack<Dictionary<string, string>>>();
+            Queue<PersonWithDictionaries> personQueue = new Queue<PersonWithDictionaries>();
             // Determine number of people.
             int numberOfPeople = rng.Next(3, 6);
             // Once for each of the number of people...
@@ -40,10 +44,13 @@ namespace CSharpConsoleApp
                 // Remove it (no dupes).
                 names.Remove(chosen);
                 // Enqueue it.
-                queuedNames.Enqueue(chosen);
+                PersonWithDictionaries newPerson = new PersonWithDictionaries()
+                {
+                    Name = chosen,
+                    Dictionaries = new Stack<Dictionary<string, string>>()
+                };
                 // Determine number of dictionaries.
                 int numberOfDictionaries = rng.Next(2, 5);
-                Stack<Dictionary<string, string>> personsStack = new Stack<Dictionary<string, string>>();
                 for (int d = 0; d < numberOfDictionaries; d++)
                 {
                     // Build dictionary.
@@ -62,9 +69,9 @@ namespace CSharpConsoleApp
                         temp.Remove(temp.ElementAt(targetIndex).Key);
                     }
                     // Push dictionary.
-                    personsStack.Push(newDictionary);
+                    newPerson.Dictionaries.Push(newDictionary);
                 }
-                queuedStacks.Enqueue(personsStack);
+                personQueue.Enqueue(newPerson);
             }
 
             // Process the queue.
@@ -73,22 +80,21 @@ namespace CSharpConsoleApp
 
             do
             {
-                string name = queuedNames.Dequeue();
-                Stack<Dictionary<string, string>> stack = queuedStacks.Dequeue();
+                PersonWithDictionaries person = personQueue.Dequeue();
                 int counter = 1;
-                Console.WriteLine($"{name} steps up to the desk with a stack of {stack.Count} dictionaries. ");
+                Console.WriteLine($"{person.Name} steps up to the desk with a stack of {person.Dictionaries.Count} dictionaries. ");
                 do
                 {
-                    Console.WriteLine($"{name} places dictionary {counter} on the desk, containing these word(s):");
-                    Dictionary<string, string> dictionary = stack.Pop();
-                    foreach(KeyValuePair<string, string> word in dictionary)
+                    Console.WriteLine($"{person.Name} places dictionary {counter} on the desk, containing these word(s):");
+                    Dictionary<string, string> dictionary = person.Dictionaries.Pop();
+                    foreach (KeyValuePair<string, string> word in dictionary)
                     {
                         Console.WriteLine($"\t\"{word.Key}\": {word.Value}");
                     }
                     counter++;
-                } while (stack.Count > 0);
+                } while (person.Dictionaries.Count > 0);
 
-            } while (queuedStacks.Count > 0);
+            } while (personQueue.Count > 0);
         }
     }
 }
